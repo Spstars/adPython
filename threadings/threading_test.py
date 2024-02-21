@@ -4,14 +4,13 @@ from queue import Queue
 database_value =0
 def increase(lock):
     global database_value
-    lock.acquire()
-    # with lock:
-    local_cp =database_value
-    #processing
-    local_cp+=1
-    time.sleep(0.1)
-    database_value = local_cp
-    lock.release()
+    with lock:
+        local_cp =database_value
+        local_cp+=1
+        time.sleep(0.1)
+        database_value = local_cp
+    # lock.acquire()    
+    # lock.release()
 
 
 if __name__ == "__main__" :

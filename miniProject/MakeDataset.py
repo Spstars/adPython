@@ -32,7 +32,7 @@ def make_sample_n_features(seed_num=1234, num_sample=500,n_features=3):
 
     np_noise = np.random.uniform(low=-5,high=5,size=num_sample)
     X = np.random.uniform(low=0, high=50,size=num_sample *n_features).reshape(n_features,-1)
-
+    print(X.shape,rx.shape)
     y= (np.dot(rx,X) + b) + np_noise
     return X,y ,rx, b
 
@@ -64,12 +64,13 @@ def drawScatterGraphWithLine(X,y,r1,b,weight,bias):
     x1 = list(range(50))
     y_orgin = [r1* x +b for x in x1] 
     y_pred = [weight * x +bias for x in x1]
-    plt.plot(x1,y_orgin,color="r")
-    plt.plot(x1,y_pred,color="black" )
+    plt.plot(x1,y_orgin,color="r",label="origin")
+    plt.plot(x1,y_pred,color="black",label ="predict" )
 
     plt.title("scatter")
     plt.xlabel("X")
     plt.ylabel('y')
+    plt.legend(loc="upper left")
     plt.show()
 
 
