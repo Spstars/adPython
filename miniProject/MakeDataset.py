@@ -3,6 +3,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 #
 
+def measure_time(func):
+    def wrapper(*args, **kwargs):
+        import time 
+        start = time.time()
+        result=func(*args,**kwargs)
+        end= time.time()
+        print(f"function {func.__name__} took {end-start}.")
+        return result
+    return wrapper
+
 def make_regression_sample(seed_num=1234, num_sample=500):
     '''make y= r1 * x + b samples 
     returns (X,y) , r1, b
@@ -19,6 +29,7 @@ def make_regression_sample(seed_num=1234, num_sample=500):
     y= (np.dot(r1,X) + b) + np_noise
     return X,y ,r1, b
 
+@measure_time
 def make_sample_n_features(seed_num=1234, num_sample=500,n_features=3):
     '''make y= r1 * x1 + r2 * x2 +r3 * x3 ... + rx * x + b samples 
     returns (X,y) , rx, b
